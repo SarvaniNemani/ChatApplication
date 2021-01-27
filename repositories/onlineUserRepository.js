@@ -1,22 +1,23 @@
 const dbConnection = require('../knexfile');
 const knex = require("knex")(dbConnection);
+const socket = require('socket.io-client')('http://localhost:9000')
 
 var createOnlineUser = function (user) {
     return new Promise((resolve, reject) => {
         console.log(user,"userrrrrrrrrrr")
         knex('onlineusers')
             .insert(
-                user
+                { user_id: user.user_id, active: true }
             )
             .onConflict('user_id')
-            .merge({
-                user
-            })
+            .merge(
+                { user_id: user.user_id, active: true }
+            )
             .catch(function (error) {
                 reject(error)
             })
             .then(function (data) {
-                socket.emit('send-message',chat)
+                socket.emit('send-message', { user_id: user.user_id, active: true })
                 resolve(data)
             })
     })

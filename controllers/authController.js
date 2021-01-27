@@ -35,7 +35,7 @@ async function authenticateLoginDetails(req, res, next) {
                 user_id:user.id,
                 active:true
             }
-            // await onlineUserRepository.createOnlineUser(data)
+            await onlineUserRepository.createOnlineUser(data)
         }
         next()
     } catch (error) {
