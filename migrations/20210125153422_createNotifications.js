@@ -3,9 +3,9 @@ exports.up = function(knex) {
     return knex.schema.createTable('notifications', table => {
         table.increments('id')
         table.integer('from_id').unsigned()
-        table.foreign('from_id').references('user_login.id').onDelete('CASCADE')
+        table.foreign('from_id').references('user.id').onDelete('CASCADE')
         table.integer('to_id').unsigned()
-        table.foreign('to_id').references('user_login.id').onDelete('CASCADE')
+        table.foreign('to_id').references('user.id').onDelete('CASCADE')
         table.integer('chat_id').unsigned()
         table.foreign('chat_id').references('chats.id').onDelete('CASCADE')
         table.timestamp('created_at').defaultTo(knex.fn.now());

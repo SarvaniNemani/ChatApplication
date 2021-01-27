@@ -47,9 +47,7 @@ var removeUserFromOnline = function (userid) {
         let query=`
         UPDATE onlineusers
         SET active = false 
-        WHERE EXISTS (SELECT *
-        FROM onlineusers
-        WHERE onlineusers.user_id = ${userid});`
+        WHERE user_id = ${userid};`
         knex.raw(query)
         .catch(function (error) {
             reject(error)

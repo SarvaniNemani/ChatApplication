@@ -95,12 +95,12 @@ async function login(req, res) {
 
 async function logout(req, res) {
     try {
-        // let userId = req.params.user_id;
+        let userId = req.params.user_id;
         var token = req.headers['authorization'];
         
         // var insertId = await authorizationRepository.removeToken(userId);
         var insertId = await authorizationRepository.removeToken(token);
-        await onlineUserRepository.removeUserFromOnline(userid)
+        await onlineUserRepository.removeUserFromOnline(userId)
         res.status(StatusCodes.OK)
         .send({
             "message" : "logged out"
