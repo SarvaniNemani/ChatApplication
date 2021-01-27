@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 const authorizationRepository = require('../repositories/authRepository');
 const StatusCodes = require('http-status-codes').StatusCodes;
-
+const onlineUserRepository = require('../repositories/onlineUserRepository')
 function comparePasswords(input, hash) {
     console.log("comparePasswords", input);
     return new Promise((resolve, reject) => {
@@ -22,13 +22,16 @@ async function authorize(req, res, next) {
         var token = req.headers['authorization'];
         var userid = req.headers['user_id'];
         var success = await authorizationRepository.getUserToken(userid, token);
-
+        console.log(success,":::::::")
         if(success == false) {
+            // await onlineUserRepository.removeUserFromOnline(userid)
             res.status(StatusCodes.NON_AUTHORITATIVE_INFORMATION)
             .send({
                 "message": "Invalid token or token expired"
             })
         }
+        else 
+        req.user = success
         //success
         next()
     } catch (error) {

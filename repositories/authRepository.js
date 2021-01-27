@@ -64,7 +64,7 @@ function getUserToken(userid, token) {
             })
             .then(function (res) {
                 if(res[0][0] != null) {
-                    resolve(true)
+                    resolve(res[0][0])
                 } else {
                     resolve(false)
                 }

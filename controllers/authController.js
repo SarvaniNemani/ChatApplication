@@ -4,7 +4,7 @@ const authorizationRepository = require("../repositories/authRepository");
 const { v4: uuidv4 } = require('uuid');
 const moment = require('moment');
 var bcrypt = require('bcryptjs');
-
+var onlineUserRepository = require('../repositories/onlineUserRepository')
 async function authenticateLoginDetails(req, res, next) {
     try {
         //getting user
@@ -29,7 +29,14 @@ async function authenticateLoginDetails(req, res, next) {
             })
         }
         //success
-        req.user = user;
+        else{
+            req.user = user;
+            let data={
+                user_id:user.id,
+                active:true
+            }
+            // await onlineUserRepository.createOnlineUser(data)
+        }
         next()
     } catch (error) {
         console.log(error);
@@ -93,6 +100,7 @@ async function logout(req, res) {
         
         // var insertId = await authorizationRepository.removeToken(userId);
         var insertId = await authorizationRepository.removeToken(token);
+        await onlineUserRepository.removeUserFromOnline(userid)
         res.status(StatusCodes.OK)
         .send({
             "message" : "logged out"
