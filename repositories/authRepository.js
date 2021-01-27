@@ -53,6 +53,26 @@ function insertRefreshToken(refreshdata) {
     })
 }
 
+function getUserToken(userid, token) {
+    return new Promise((resolve, reject) => {
+        let query = `SELECT * FROM user_access_token WHERE user_id = "${ userid }" and token = "${ token }"
+                    and expiry_date > now(); `
+
+        knex.raw(query)
+            .catch(function (error) {
+                reject(error)
+            })
+            .then(function (res) {
+                if(res[0][0] != null) {
+                    resolve(true)
+                } else {
+                    resolve(false)
+                }
+            }) 
+    })  
+
+}
+
 function removeToken(token) {
     return new Promise((resolve, reject) => {
         // let query = `DELETE FROM user_access_token WHERE user_id = "${userid}";`
@@ -75,5 +95,6 @@ module.exports = {
     getUserForUsername,
     insertToken,
     insertRefreshToken,
+    getUserToken,
     removeToken
 }
