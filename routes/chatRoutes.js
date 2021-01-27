@@ -12,4 +12,11 @@ router.put(
     chatController.readMessage
 );
 
+// read notification
+router.put(
+    ``,
+    helper.authorize,
+    chatController.readNotification
+);
+
 module.exports = router;

@@ -34,8 +34,22 @@ var readMessage = function (id) {
     })
 }
 
+var readNotification = function (id) {
+    return new Promise((resolve, reject) => {
+        knex('notifications')
+            .where('id', id)
+            .update({read: true})
+            .catch(function (error) {
+                reject(error)
+            })
+            .then(function (insertId) {
+                resolve(insertId);
+            })
+    })
+}
 
 module.exports = {
     sendMessage: sendMessage,
     readMessage,
+    readNotification
 };

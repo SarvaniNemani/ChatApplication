@@ -38,3 +38,19 @@ exports.readMessage = async (req, res) => {
             })
     }
 }
+
+exports.readNotification = async (req, res) => {
+    try {
+        id = req.params.id
+        let status = await chatRepository.readNotification(id)
+        res.status(200).send({
+            "status_code": 200,
+        })
+    } catch (error) {
+        res.status(500)
+            .send({
+                "status_code": 500,
+                "message": error.message
+            })
+    }
+}
