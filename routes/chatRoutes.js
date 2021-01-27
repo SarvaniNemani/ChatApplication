@@ -5,4 +5,11 @@ var helper =require('../helpers/helper')
 // Create application 
 router.post('',helper.authorize,chatController.sendMessage);
 
+// read chat
+router.put(
+    ``,
+    helper.authorize,
+    chatController.readMessage
+);
+
 module.exports = router;
