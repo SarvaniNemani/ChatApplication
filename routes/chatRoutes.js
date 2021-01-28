@@ -10,28 +10,28 @@ router.post('',helper.authorize, uploadAttachment.single('file'),chatController.
 
 //get chat
 router.get (
-    `/:to_id`,
+    `/chat/:to_id`,
     helper.authorize,
     chatController.getChat,
 )
 
 // read chat
 router.put(
-    ``,
+    `/:id`,
     helper.authorize,
     chatController.readMessage
 );
 
 //get notifications
 router.get (
-    `/:to_id`,
+    `/notifications/:to_id`,
     helper.authorize,
     chatController.getNotifications,
 )
 
 // read notification
 router.put(
-    ``,
+    `/:id`,
     helper.authorize,
     chatController.readNotification
 );

@@ -20,11 +20,11 @@ var sendMessage = function (chat) {
     })
 };
 
-var readMessage = function (id) {
+var readMessage = function (id, data) {
     return new Promise((resolve, reject) => {
         knex('chats')
             .where('id', id)
-            .update({read: true})
+            .update(data)
             .catch(function (error) {
                 reject(error)
             })
@@ -50,14 +50,15 @@ var readNotification = function (id) {
 
 var getNotifications = function (id) {
     return new Promise((resolve, reject) => {
-        knex.select('notifications')
-            .leftJoin('chats', 'user.id', 'chats.to_id')
-            .where('to_id', id)
+        knex.select('*')
+            .from('notifications')
+            .leftJoin('chats', 'notifications.to_id', 'chats.id')
+            .where('chats.to_id', id)
             .catch(function (error) {
                 reject(error)
             })
             .then(function (data) {
-                resolve(data[0]);
+                resolve(data);
             })
     })
 }

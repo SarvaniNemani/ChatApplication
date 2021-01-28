@@ -1,3 +1,4 @@
+const { data } = require('jquery')
 var chatRepository = require('../repositories/chatRepository')
 const notificationRepository = require('../repositories/notificationRepository')
 
@@ -28,8 +29,9 @@ exports.sendMessage = async (req,res) => {
 
 exports.readMessage = async (req, res) => {
     try {
-        id = req.params.id
-        let status = await chatRepository.readMessage(id)
+        let id = req.params.id
+        let data = req.body;
+        let status = await chatRepository.readMessage(id, data)
         res.status(200).send({
             "status_code": 200,
         })
