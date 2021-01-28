@@ -24,10 +24,17 @@ async function authorize(req, res, next) {
         var success = await authorizationRepository.getUserToken(userid, token);
         console.log(success,":::::::")
         if(success == false) {
-            await onlineUserRepository.removeUserFromOnline(userid)
+           
             res.status(StatusCodes.NON_AUTHORITATIVE_INFORMATION)
             .send({
                 "message": "Invalid token or token expired"
+            })
+        }
+        else if(success == "expired"){
+            await onlineUserRepository.removeUserFromOnline(userid)
+            res.status(StatusCodes.NON_AUTHORITATIVE_INFORMATION)
+            .send({
+                "message": " token expired"
             })
         }
         else 

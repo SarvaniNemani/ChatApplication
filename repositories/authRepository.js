@@ -55,17 +55,21 @@ function insertRefreshToken(refreshdata) {
 
 function getUserToken(userid, token) {
     return new Promise((resolve, reject) => {
-        let query = `SELECT * FROM user_access_token WHERE user_id = "${ userid }" and token = "${ token }"
-                    and expiry_date > now(); `
+        let query = `SELECT * FROM user_access_token WHERE user_id = "${ userid }" and token = "${ token }"; `
 
         knex.raw(query)
             .catch(function (error) {
                 reject(error)
             })
             .then(function (res) {
-                if(res[0][0] != null) {
+                console.log(new Date(res[0][0].expiry_date), new Date(),new Date(res[0][0].expiry_date)> new Date())
+                if(new Date(res[0][0].expiry_date) <= new Date()){
+                    resolve("expired") 
+                 }
+               else if(res[0][0] != null) {
                     resolve(res[0][0])
-                } else {
+                } 
+                else {
                     resolve(false)
                 }
             }) 
