@@ -19,9 +19,12 @@ function loadRoutes() {
     const authorizationRouter = require('./routes/authRoute');
     const usersRouter = require('./routes/userRoute');
     const chatRoute = require('./routes/chatRoutes')
+    const onlineUserRoute = require('./routes/onlineUsersRoutes')
     app.use(`/chat`, chatRoute)
     app.use(`/auth`, authorizationRouter)
     app.use(`/users`, usersRouter)
+    app.use(`/onlineUsers`, onlineUserRoute)
+
 }
 
 

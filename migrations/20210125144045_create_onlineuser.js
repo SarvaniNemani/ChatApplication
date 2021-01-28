@@ -4,7 +4,7 @@ exports.up = function(knex) {
         table.increments('id')
         table.integer('user_id').unsigned()
         table.foreign('user_id').references('user.id').onDelete('CASCADE')
-        table.unique('id')
+        table.unique('user_id')
         table.boolean('active')
     });
 };

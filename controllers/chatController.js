@@ -11,7 +11,7 @@ exports.sendMessage = async (req,res) => {
         // await notificationRepository.createNotification(from_id,to_id,chat_id)
         res.status(200).send({
             "status_code": 200,
-            "access_code": chat,
+            "data": chat,
         })
     }
     catch (error) {
