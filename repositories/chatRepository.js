@@ -13,7 +13,7 @@ var sendMessage = function (chat) {
                 reject(error)
             })
             .then(function (data) {
-                socket.emit('online-users',chat)
+                socket.emit('send-message',chat)
                 // console.log(socket)
                 resolve(data[0])
             })

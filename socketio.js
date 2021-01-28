@@ -24,6 +24,9 @@ function onConnect(socket) {
   socket.on('online-users', function (data) {
     socket.broadcast.emit('online-users', data);
   });
+  socket.on('notifications', function (data) {
+    socket.broadcast.emit('notifications', data);
+  });
 }
 
 module.exports = function (socketio) {

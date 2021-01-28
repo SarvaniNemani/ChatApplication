@@ -18,7 +18,7 @@ async function authenticateLoginDetails(req, res, next) {
         }
         //compare passwords
         var success = await helper.comparePasswords(req.body.password, user.password);
-        console.log(success);
+        // console.log(success);
         // console.log("validate password",success)
 
         //wrong password

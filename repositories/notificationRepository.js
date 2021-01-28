@@ -1,6 +1,7 @@
 
 const dbConnection = require('../knexfile');
 const knex = require("knex")(dbConnection);
+const socket = require('socket.io-client')('http://localhost:9000')
 
 var createNotification = function (from_id,to_id,chat_id) {
     return new Promise((resolve, reject) => {
@@ -14,6 +15,7 @@ var createNotification = function (from_id,to_id,chat_id) {
                 reject(error)
             })
             .then(function (notification) {
+                socket.emit('notifications',chat)
                 resolve(notification)
             })
     })
