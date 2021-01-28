@@ -2,8 +2,10 @@ var express = require('express');
 var router = express.Router();
 var chatController = require('../controllers/chatController')
 var helper =require('../helpers/helper')
+const { uploadAttachment } = require('../helpers/upload')
+
 // Create application 
-router.post('',helper.authorize,chatController.sendMessage);
+router.post('',helper.authorize, uploadAttachment.single('file'),chatController.sendMessage);
 
 //get chat
 router.get (

@@ -3,18 +3,21 @@ const notificationRepository = require('../repositories/notificationRepository')
 
 exports.sendMessage = async (req,res) => {
     try{
-        // console.log(req.user,">>>>>>>>>>>")
+        console.log(req.body)
         req.body.from_id = req.user. user_id
+        req.body.filename = req.file?req.file.filename:null
+        req.body.path = req.file?req.file.path:null
         let chat =await chatRepository.sendMessage(req.body)
         const { from_id,to_id } = req.body
         const chat_id = chat
-        // await notificationRepository.createNotification(from_id,to_id,chat_id)
+        await notificationRepository.createNotification(from_id,to_id,chat_id)
         res.status(200).send({
             "status_code": 200,
             "data": chat,
         })
     }
     catch (error) {
+        console.log(error)
         res.status(500)
             .send({
                 "status_code": 500,

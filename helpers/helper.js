@@ -22,7 +22,7 @@ async function authorize(req, res, next) {
         var token = req.headers['authorization'];
         var userid = req.headers['user_id'];
         var success = await authorizationRepository.getUserToken(userid, token);
-        console.log(success,":::::::")
+        // console.log(success,":::::::")
         if(success == false) {
            
             res.status(StatusCodes.NON_AUTHORITATIVE_INFORMATION)
