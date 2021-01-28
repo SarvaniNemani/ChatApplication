@@ -62,7 +62,7 @@ function getUserToken(userid, token) {
                 reject(error)
             })
             .then(function (res) {
-                console.log(new Date(res[0][0].expiry_date), new Date(),new Date(res[0][0].expiry_date)> new Date())
+                console.log(res[0][0] ,new Date())
                 if(new Date(res[0][0].expiry_date) <= new Date()){
                     resolve("expired") 
                  }
