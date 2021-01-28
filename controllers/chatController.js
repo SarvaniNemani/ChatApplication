@@ -54,3 +54,38 @@ exports.readNotification = async (req, res) => {
             })
     }
 }
+
+exports.getNotifications = async (req, res) => {
+    try {
+        id = req.params.to_id
+        let notifications = await chatRepository.getNotifications(id)
+        res.status(200).send({
+            "status_code": 200,
+            "notifications": notifications
+        })
+    } catch (error) {
+        res.status(500)
+            .send({
+                "status_code": 500,
+                "message": error.message
+            })
+    }
+}
+
+exports.getChat = async (req, res) => {
+    try {
+        id = req.params.to_id
+        let chat = await chatRepository.getChat(id)
+        res.status(200).send({
+            "status_code": 200,
+            "chat": chat
+        })
+    } catch (error) {
+        res.status(500)
+            .send({
+                "status_code": 500,
+                "message": error.message
+            })
+    }
+}
+

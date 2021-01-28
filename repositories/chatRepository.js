@@ -48,8 +48,37 @@ var readNotification = function (id) {
     })
 }
 
+var getNotifications = function (id) {
+    return new Promise((resolve, reject) => {
+        knex.select('notifications')
+            .where('to_id', id)
+            .catch(function (error) {
+                reject(error)
+            })
+            .then(function (data) {
+                resolve(data[0]);
+            })
+    })
+}
+
+var getChat = function (id) {
+    return new Promise((resolve, reject) => {
+        knex.select('message')
+            .from('chats')
+            .where('to_id', id)
+            .catch(function (error) {
+                reject(error)
+            })
+            .then(function (data) {
+                resolve(data);
+            })
+    })
+}
+
 module.exports = {
     sendMessage: sendMessage,
     readMessage,
-    readNotification
+    readNotification,
+    getNotifications,
+    getChat
 };

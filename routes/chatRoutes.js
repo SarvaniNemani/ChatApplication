@@ -5,12 +5,26 @@ var helper =require('../helpers/helper')
 // Create application 
 router.post('',helper.authorize,chatController.sendMessage);
 
+//get chat
+router.get (
+    `/:to_id`,
+    helper.authorize,
+    chatController.getChat,
+)
+
 // read chat
 router.put(
     ``,
     helper.authorize,
     chatController.readMessage
 );
+
+//get notifications
+router.get (
+    `/:to_id`,
+    helper.authorize,
+    chatController.getNotifications,
+)
 
 // read notification
 router.put(
