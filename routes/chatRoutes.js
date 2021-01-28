@@ -2,8 +2,13 @@ var express = require('express');
 var router = express.Router();
 var chatController = require('../controllers/chatController')
 var helper =require('../helpers/helper')
-// Create application 
-router.post('',helper.authorize,chatController.sendMessage);
+
+// Send message
+router.post(
+    '',
+    helper.authorize,
+    chatController.sendMessage
+);
 
 //get chat
 router.get (

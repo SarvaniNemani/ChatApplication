@@ -51,6 +51,7 @@ var readNotification = function (id) {
 var getNotifications = function (id) {
     return new Promise((resolve, reject) => {
         knex.select('notifications')
+            .leftJoin('chats', 'user.id', 'chats.to_id')
             .where('to_id', id)
             .catch(function (error) {
                 reject(error)
@@ -61,11 +62,12 @@ var getNotifications = function (id) {
     })
 }
 
-var getChat = function (id) {
+var getChat = function (toId) {
     return new Promise((resolve, reject) => {
-        knex.select('message')
-            .from('chats')
-            .where('to_id', id)
+        knex.select('message','username')
+            .from('user')
+            .leftJoin('chats', 'user.id', 'chats.to_id')
+            .where('to_id', toId)
             .catch(function (error) {
                 reject(error)
             })
