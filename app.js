@@ -28,6 +28,6 @@ function loadRoutes() {
 }
 
 
-app.listen('9000', '0.0.0.0', function () {
+server.listen('9000', '0.0.0.0', function () {
     console.log('Express server listening on %d, in %s mode', '9000', app.get('env'));
 });

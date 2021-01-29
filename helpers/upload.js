@@ -1,6 +1,6 @@
 const multer = require('multer');
 var fs = require('fs');
-if (!fs.existsSync('../attachments')) fs.mkdirSync('../attachments')
+if (!fs.existsSync('../attachments')) fs.mkdirSync('attachments')
 console.log(fs.existsSync('../attachments'))
 const uploadAttachment = multer({
     storage: multer.diskStorage({
